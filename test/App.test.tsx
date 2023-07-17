@@ -9,4 +9,7 @@ describe("App", () => {
       "Github Actions Exercise"
     );
   });
+  it("Fails Test", () => {
+    expect(true).toBe(false);
+  });
 });
