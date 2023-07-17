@@ -2,18 +2,17 @@
 name: Deploy to Github Pages
 
 on:
-  push:
-    branches:
-      - main
+  workflow_run:
+    workflows:
+      - Build Site
+    types:
+      - completed
 
 jobs:
-  build:
-    uses: ./github/workflows/build.yaml
   deploy:
     name: Deploy
     runs-on: ubuntu-22.04
-    needs:
-      - build
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
       - name: Download Build Files
         uses: actions/download-artifact@v3
