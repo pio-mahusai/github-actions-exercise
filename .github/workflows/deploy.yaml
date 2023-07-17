@@ -1,0 +1,27 @@
+---
+name: Deploy to Github Pages
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    uses: ./github/workflows/build.yaml
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-22.04
+    needs:
+      - build
+    steps:
+      - name: Download Build Files
+        uses: actions/download-artifact@v3
+        with:
+          name: production-files
+          path: ./dist
+      - name: Deploy to Github Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
