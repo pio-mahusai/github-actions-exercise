@@ -25,7 +25,7 @@ jobs:
             - recursive: true
               args: [--frozen-lockfile, --strict-peer-dependencies]
       - name: Build Site
-        run: pnpm build --path=/github-actions-exercise/
+        run: pnpm build --base=/github-actions-exercise/
       - name: Upload Build Files
         uses: actions/upload-artifact@v3
         with:
